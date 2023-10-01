@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import * as $ from 'jquery'
 
 type SrcImage = {
-  name?: number;
+  name?: string;
   flippedBack?: string;
   src?: string;
   opened?: boolean;
@@ -133,6 +133,7 @@ const cardsSrc: Array<object> = [
 export class HomeComponent {
   protected Card: Array<SrcImage> = [];
   protected counter: number = 0;
+  protected selectedCards: Array<SrcImage> = [];
   constructor(){
     this.Card.push(...cardsSrc);
   }
@@ -145,29 +146,38 @@ export class HomeComponent {
     this.Card.forEach((val) =>{
       if (this.counter < 2){
         if(nameCard == val.name && cardId == val.id){
-          if(val.opened == true){
-            val.opened = false;
-            // return;
-          } else {
+          if(val.opened == false){
             val.opened = true;
             this.counter++;
-            // return;
+            this.selectedCards.push(val);
           }
         } 
       }
     });
-    
+    console.log(this.selectedCards);
+
     if(this.counter == 2){
       console.log(`Nro cartas volteadas: ${this.counter}`);
-      setTimeout(()=>{
-        this.Card.forEach((val)=>{
-          val.opened = false;
+      if(this.selectedCards[0].name == this.selectedCards[1].name){
+        console.log("Si, son iguales");
+        this.selectedCards = [];
+        this.counter = 0;
+      } else {
+        console.log("No son iguales...");
+        setTimeout(()=>{
+          this.Card.forEach((val)=>{
+            if(val.name == this.selectedCards[1].name || val.name == this.selectedCards[0].name){
+              val.opened = false;
+            }
+          });
+          this.selectedCards = [];
           this.counter = 0;
-        });
-      },1000);
-    }
+        },1000);
+        
+      }
+    } 
   }
-  
+
   reset(){
     this.Card.forEach((val)=>{
       val.opened = false;
