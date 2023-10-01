@@ -142,34 +142,50 @@ export class HomeComponent {
     
   }
   
+  //Metodo para abrir la carta
   flipCard(nameCard:any, cardId:any, event: any){
+    //reviso cada una de las cartas con foreach
     this.Card.forEach((val) =>{
+      //Si el contador es menor a 2, se ejecuta esto
       if (this.counter < 2){
+        //si el nombre e id de la carta seleccionada coincide con alguna carta del arreglo de cartas... 
         if(nameCard == val.name && cardId == val.id){
+          //Chequeo si la carta esta volteada, si no lo esta...
           if(val.opened == false){
+            //volteo la carta...
             val.opened = true;
+            //Cuento la carta volteada
             this.counter++;
+            //y la agrego a una lista de cartas seleccionadas...
             this.selectedCards.push(val);
           }
         } 
       }
     });
     console.log(this.selectedCards);
-
+    //Si el contador llega a 2.
     if(this.counter == 2){
       console.log(`Nro cartas volteadas: ${this.counter}`);
+      //Checo si el nombre de la primera carta coincide con el de la segunda, si coinciden...
       if(this.selectedCards[0].name == this.selectedCards[1].name){
         console.log("Si, son iguales");
+        //Restauro a la nada el arreglo de cartas
         this.selectedCards = [];
+        //Restauro el contador
         this.counter = 0;
+        //Si no coinciden...
       } else {
         console.log("No son iguales...");
+        //Establezco un tiempo definido antes de ejecutar...
         setTimeout(()=>{
           this.Card.forEach((val)=>{
+            //Como no son iguales, busco las cartas que coinciden con las cartas que debo voltear de regreso
             if(val.name == this.selectedCards[1].name || val.name == this.selectedCards[0].name){
+              //Y las volteo de nuevo.
               val.opened = false;
             }
           });
+          //Y reestablezco los valores de las cartas y contador.
           this.selectedCards = [];
           this.counter = 0;
         },1000);
@@ -179,6 +195,7 @@ export class HomeComponent {
   }
 
   reset(){
+    //Al resetear restauro todos las cartas y demas.
     this.Card.forEach((val)=>{
       val.opened = false;
       this.counter = 0;
