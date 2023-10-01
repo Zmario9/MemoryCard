@@ -1,0 +1,10 @@
+<!-- <p>home works!</p> -->
+<main>
+    <div id="memoryTable">
+        <div class="div{{i+1}}" (click)="counter != 2 ? flipCard(cards.name, cards.id, $event) : null" *ngFor="let cards of Card; let i = index">
+            <img *ngIf="cards.opened == true" src="{{cards.src}}" alt="{{cards.name}}">
+            <img *ngIf="cards.opened == false" src="{{cards.flippedBack}}" alt="Carta sin voltear">
+        </div>
+        <button (click)="reset()">Reiniciar</button>
+    </div>
+</main>
