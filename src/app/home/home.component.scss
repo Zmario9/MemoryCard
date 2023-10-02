@@ -3,6 +3,7 @@ main{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    background-color: transparent;
     #memoryTable {
         // height: 45vh;
         display: grid;
@@ -34,20 +35,26 @@ main{
             height: 45vh;
             // display: grid;
             width: 100%;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            grid-column-gap: 10px;
-            grid-row-gap: 10px;
+            // grid-template-columns: repeat(4, 1fr);
+            // grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 10vh);
+            grid-template-rows: repeat(4, 10vh);
+            grid-column-gap: 2.1%;
+            grid-row-gap: 2.1%;
             @for $var from 1 to 17 {
                 .div#{$var}{
                     // background-color: blue;
                     height: 100%;
                     // display: flex;
                     justify-content: center;
+                    align-items: center;
                     img{
                         width: 90%;
                         height: 90%;
                         background-size: cover;
+                        // &:hover{
+                        //     transform: rotate3d(0, 1, 0, 360deg);
+                        // }
                     }
                     // @debug "vuelta: #{$var}";
                 }

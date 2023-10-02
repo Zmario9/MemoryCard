@@ -146,9 +146,6 @@ export class HomeComponent {
   //Metodo para abrir la carta
   flipCard(nameCard:any, cardId:any, event: any){
     console.log(event.srcElement);
-    // event.srcElement.classList.add("fadeout");
-    // console.log($(event.srcElement).parent());
-    // $(event.srcElement).parent().addClass("transparency");
     //reviso cada una de las cartas con foreach
     this.Card.forEach((val) =>{
       //Si el contador es menor a 2, se ejecuta esto
@@ -201,18 +198,22 @@ export class HomeComponent {
       }
     } 
 
+    //Si el contador de pares encontrados llega a 8, es decir, se consiguen todos los pares...
     if(this.cardsSpottedCounter == 8){
+      //ejecuto lo que se hace al ganar
       console.log("YOU WIN!!!");
     }
-
   }
-
+  
+  //Metodo para resetear el juego
   reset(){
-    //Al resetear restauro todos las cartas y demas.
+    //Volteo todas las cartas para taparlas.
     this.Card.forEach((val)=>{val.opened = false;});
-    // console.log(this.Card);
+    //Regreso el contador de cartas seleccionadas a 0.
     this.counter = 0;
+    //Regreso el contador de pares encontrados a 0.
     this.cardsSpottedCounter = 0;
+    //Rebarajeo las cartas.
     this.Card.sort(()=>Math.random() - 0.5);
   }
 }
