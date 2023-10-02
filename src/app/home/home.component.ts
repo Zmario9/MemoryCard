@@ -134,6 +134,7 @@ export class HomeComponent {
   protected Card: Array<SrcImage> = [];
   protected counter: number = 0;
   protected selectedCards: Array<SrcImage> = [];
+  protected cardsSpottedCounter: number = 0;
   constructor(){
     this.Card.push(...cardsSrc);
   }
@@ -144,6 +145,10 @@ export class HomeComponent {
   
   //Metodo para abrir la carta
   flipCard(nameCard:any, cardId:any, event: any){
+    console.log(event.srcElement);
+    // event.srcElement.classList.add("fadeout");
+    // console.log($(event.srcElement).parent());
+    // $(event.srcElement).parent().addClass("transparency");
     //reviso cada una de las cartas con foreach
     this.Card.forEach((val) =>{
       //Si el contador es menor a 2, se ejecuta esto
@@ -162,6 +167,7 @@ export class HomeComponent {
         } 
       }
     });
+    
     console.log(this.selectedCards);
     //Si el contador llega a 2.
     if(this.counter == 2){
@@ -173,6 +179,9 @@ export class HomeComponent {
         this.selectedCards = [];
         //Restauro el contador
         this.counter = 0;
+        //Cuento que ya se encontro un par de cartas.
+        this.cardsSpottedCounter++;
+        console.log(`Par encontrado Nro: ${this.cardsSpottedCounter}!`);
         //Si no coinciden...
       } else {
         console.log("No son iguales...");
@@ -189,16 +198,21 @@ export class HomeComponent {
           this.selectedCards = [];
           this.counter = 0;
         },1000);
-        
       }
     } 
+
+    if(this.cardsSpottedCounter == 8){
+      console.log("YOU WIN!!!");
+    }
+
   }
 
   reset(){
     //Al resetear restauro todos las cartas y demas.
-    this.Card.forEach((val)=>{
-      val.opened = false;
-      this.counter = 0;
-    })
+    this.Card.forEach((val)=>{val.opened = false;});
+    // console.log(this.Card);
+    this.counter = 0;
+    this.cardsSpottedCounter = 0;
+    this.Card.sort(()=>Math.random() - 0.5);
   }
 }

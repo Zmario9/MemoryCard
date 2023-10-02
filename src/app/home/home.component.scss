@@ -52,6 +52,10 @@ main{
                     // @debug "vuelta: #{$var}";
                 }
             }
+            .transparency{
+                transition-duration: 0.5s;
+                opacity: 0;
+            }
         }
     }
 }
