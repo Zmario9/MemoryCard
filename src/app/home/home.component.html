@@ -1,10 +1,11 @@
 <!-- <p>home works!</p> -->
 <main>
-    <div id="memoryTable">
-        <div class="div{{i+1}}" (click)="counter != 2 ? flipCard(cards.name, cards.id, $event) : null" *ngFor="let cards of Card; let i = index">
+    <div id="memoryTable">               <!-- counter != 2 ? flipCard(cards.name, cards.id, $event) : null (Con esto podria fixear lo de la animacion)-->
+        <button type="button" [disabled]="counterSec == 2" mdbRipple class="div{{i+1}} btn btn-info" (click)="!cards.opened ? (counter != 2 ? flipCard(cards.name, cards.id, $event) : null) : null" *ngFor="let cards of Card; let i = index">
             <img *ngIf="cards.opened == true" src="{{cards.src}}" alt="{{cards.name}}">
             <img *ngIf="cards.opened == false" src="{{cards.flippedBack}}" alt="Carta sin voltear">
-        </div>
+        </button>
     </div>
-    <button (click)="reset()">Reiniciar</button>
+    <button type="button" class="btn btn-success" mdbRipple (click)="reset()">Reiniciar</button>
 </main>
+<!-- !cards.opened ? (counter != 2 ? flipCard(cards.name, cards.id, $event) : null) : null -->

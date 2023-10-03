@@ -133,6 +133,7 @@ const cardsSrc: Array<object> = [
 export class HomeComponent {
   protected Card: Array<SrcImage> = [];
   protected counter: number = 0;
+  protected counterSec: number = 0;
   protected selectedCards: Array<SrcImage> = [];
   protected cardsSpottedCounter: number = 0;
   constructor(){
@@ -142,10 +143,34 @@ export class HomeComponent {
   ngOnInit():void {
     
   }
+  //metodo para la animacion de la carta volteada
+  
+  //Soon.......
   
   //Metodo para abrir la carta
   flipCard(nameCard:any, cardId:any, event: any){
-    console.log(event.srcElement);
+    const divName:any = $($(event.srcElement).parent()).attr("class");
+    const parentHtml:any = document.getElementsByClassName(divName);
+
+    $(parentHtml).animate(
+      { deg: 180 },
+      {
+        duration: 1200,
+        step: function(now) {
+          $(this).css({ transform: 'rotateY(' + now + 'deg)' });
+          
+        },
+        start:()=>{
+          console.log("comienza animacion...");
+          this.counterSec++;
+          console.log(this.counterSec);
+        },
+        complete: ()=>{
+          //Cuando completa la animacion
+          console.log("termino la animacion");
+        },
+      }
+    );
     //reviso cada una de las cartas con foreach
     this.Card.forEach((val) =>{
       //Si el contador es menor a 2, se ejecuta esto
@@ -155,7 +180,7 @@ export class HomeComponent {
           //Chequeo si la carta esta volteada, si no lo esta...
           if(val.opened == false){
             //volteo la carta...
-            val.opened = true;
+            val.opened = true;  //Probablemente me tocara cambiar el val y counter de posicion entre ellos
             //Cuento la carta volteada
             this.counter++;
             //y la agrego a una lista de cartas seleccionadas...
@@ -165,7 +190,7 @@ export class HomeComponent {
       }
     });
     
-    console.log(this.selectedCards);
+    // console.log(this.selectedCards);
     //Si el contador llega a 2.
     if(this.counter == 2){
       console.log(`Nro cartas volteadas: ${this.counter}`);
@@ -197,7 +222,7 @@ export class HomeComponent {
         },1000);
       }
     } 
-
+    
     //Si el contador de pares encontrados llega a 8, es decir, se consiguen todos los pares...
     if(this.cardsSpottedCounter == 8){
       //ejecuto lo que se hace al ganar
@@ -217,3 +242,18 @@ export class HomeComponent {
     this.Card.sort(()=>Math.random() - 0.5);
   }
 }
+
+//Hago la animacion de voltear la carta.
+// $(parentHtml).animate(
+//   { deg: 180 },
+//   {
+//     duration: 1200,
+//     step: function(now) {
+//       $(this).css({ transform: 'rotateY(' + now + 'deg)' });
+//     },
+//     complete: ()=>{
+//       //Cuando completa la animacion
+//       console.log("termino la animacion");
+//     },
+//   }
+// );
