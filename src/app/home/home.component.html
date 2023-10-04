@@ -1,11 +1,15 @@
 <!-- <p>home works!</p> -->
 <main>
+    <div id="titleGame" class="border border-info border-4 rounded">
+        <h1 class="text-dark">juego de memoria</h1>
+    </div>
     <div id="memoryTable">               <!-- counter != 2 ? flipCard(cards.name, cards.id, $event) : null (Con esto podria fixear lo de la animacion)-->
-        <button type="button" [disabled]="counterSec == 2" mdbRipple class="div{{i+1}} btn btn-info" (click)="!cards.opened ? (counter != 2 ? flipCard(cards.name, cards.id, $event) : null) : null" *ngFor="let cards of Card; let i = index">
+        <button type="button" [disabled]="counter == 2" mdbRipple class="div{{i+1}} btn btn-info" (click)="flipCard(cards.name, cards.id, $event)" *ngFor="let cards of Card; let i = index">
             <img *ngIf="cards.opened == true" src="{{cards.src}}" alt="{{cards.name}}">
             <img *ngIf="cards.opened == false" src="{{cards.flippedBack}}" alt="Carta sin voltear">
         </button>
     </div>
     <button type="button" class="btn btn-success" mdbRipple (click)="reset()">Reiniciar</button>
+    <h1 *ngIf="cardsSpottedCounter == 8" class="text-danger">GANASTE!!!</h1>
 </main>
 <!-- !cards.opened ? (counter != 2 ? flipCard(cards.name, cards.id, $event) : null) : null -->
