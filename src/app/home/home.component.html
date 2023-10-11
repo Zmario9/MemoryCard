@@ -1,8 +1,10 @@
 <!-- <p>home works!</p> -->
-<main>
+<div id="titleFlex">
     <div id="titleGame" class="border border-info border-4 rounded">
         <h1 class="text-dark">juego de memoria</h1>
     </div>
+</div>
+<main>
     <div id="memoryTable">               <!-- counter != 2 ? flipCard(cards.name, cards.id, $event) : null (Con esto podria fixear lo de la animacion)-->
         <button type="button" [disabled]="counter == 2" mdbRipple class="div{{i+1}} btn btn-info" (click)="flipCard(cards.name, cards.id, $event)" *ngFor="let cards of Card; let i = index">
             <img *ngIf="cards.opened == true" src="{{cards.src}}" alt="{{cards.name}}">
